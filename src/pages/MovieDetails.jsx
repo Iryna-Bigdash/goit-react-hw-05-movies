@@ -1,29 +1,71 @@
-import { Link, Outlet, useParams } from 'react-router-dom';
+import { Suspense, useRef, useState, useEffect } from 'react';
+import { Link, Outlet, useLocation, useParams } from 'react-router-dom';
+import axios from 'axios';
 
 export default function MovieDetails() {
   const { movieId } = useParams();
+  const location = useLocation();
 
-  // state
-  // ISLOADING
-  // ERROR
+  const backLinkLocationRef = useRef(location.state?.from ?? '/movies');
+  console.log(location);
 
-  // useEffect(() => {
-  //     //http if need
-  // }, []);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [movieDetails, setMovieDetails] = useState(null);
+
+  useEffect(() => {
+    const fetchMovieDetails = async () => {
+      try {
+        const url = `https://api.themoviedb.org/3/movie/${movieId}`;
+        const options = {
+          headers: {
+            accept: 'application/json',
+            Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJiMTQ5OTU1ZmI1NTZhMDM0NWQzZmFkYmE4NGI5NjMzZiIsInN1YiI6IjY0NzQ4ODI3YmUyZDQ5MDBmOTk0ZGEzNiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.RVHVZBrZirKyzuw79VrketFSS363cr6NcWVSHfdO7yQ',
+          },
+        };
+
+        const response = await axios.get(url, options);
+        console.log(response.data)
+        setMovieDetails(response.data);
+        setLoading(false);
+      } catch (error) {
+        setError(error.message);
+        setLoading(false);
+      }
+    };
+
+    fetchMovieDetails();
+  }, [movieId]);
+
+  if (loading) {
+    return <div>Loading details...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
 
   return (
     <div>
-      <p>Go back</p>
-      <h2>Деталі фільму: {movieId}</h2>
+      <Link to={backLinkLocationRef.current}>Go back</Link>
+      <>
+      <h3>Title: {movieDetails.title} {movieId}</h3>
+      <p>User Score: {Math.round(movieDetails.vote_average)}</p>
+      <p>Overview: {movieDetails.overview}</p>
+      <p>Genres: { movieDetails.genres.map(genre => genre.name).join(', ')} </p>
+      {/* Display other movie details as needed */}
+      </>   
       <ul>
         <li>
-          <Link to="get-movie-credits">Акторський склад</Link>
+          <Link to="cast">Акторський склад</Link>
         </li>
         <li>
-          <Link to="get-movie-reviews">Ревью</Link>
+          <Link to="reviews">Ревью</Link>
         </li>
       </ul>
-      <Outlet />
+      <Suspense fallback={<div>Loading details</div>}>
+        <Outlet />
+      </Suspense>
     </div>
   );
 }
