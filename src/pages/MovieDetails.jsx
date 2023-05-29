@@ -45,22 +45,33 @@ export default function MovieDetails() {
     return <div>Error: {error}</div>;
   }
 
+const voteAverage = movieDetails?.vote_average;
+const votePercentage = voteAverage ? `${voteAverage * 10}%` : 'N/A';
+
+
+
+
   return (
     <div>
       <Link to={backLinkLocationRef.current}>Go back</Link>
-      <>
+      <div>
+      <img src={`https://image.tmdb.org/t/p/w500${movieDetails.poster_path}`} alt="Movie Poster" width={'300px'} height={'400px'} />
+
+      <div>
       <h3>Title: {movieDetails.title} {movieId}</h3>
-      <p>User Score: {Math.round(movieDetails.vote_average)}</p>
+      <p>User Score: {votePercentage}</p>
       <p>Overview: {movieDetails.overview}</p>
       <p>Genres: { movieDetails.genres.map(genre => genre.name).join(', ')} </p>
-      {/* Display other movie details as needed */}
-      </>   
+      </div>
+  
+      </div>
+      <p>Editional information</p>   
       <ul>
         <li>
-          <Link to="cast">Акторський склад</Link>
+          <Link to="cast">Cast</Link>
         </li>
         <li>
-          <Link to="reviews">Ревью</Link>
+          <Link to="reviews">Reviews</Link>
         </li>
       </ul>
       <Suspense fallback={<div>Loading details</div>}>
