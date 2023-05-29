@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunkgoit_react_hw_05_movies=self.webpackChunkgoit_react_hw_05_movies||[]).push([[597],{597:function(e,r,i){i.r(r),i.d(r,{default:function(){return n}});var s=i(689),c=i(184);function n(){var e=(0,s.UO)().movieId;return(0,c.jsxs)("ul",{children:[(0,c.jsx)("li",{children:(0,c.jsx)("img",{src:"",alt:"ActorsPhoto"})}),(0,c.jsx)("li",{children:(0,c.jsxs)("p",{children:["Name: ",e," "]})}),(0,c.jsx)("li",{children:(0,c.jsx)("p",{children:"Character:"})})]})}}}]);
+//# sourceMappingURL=597.8899b013.chunk.js.map
