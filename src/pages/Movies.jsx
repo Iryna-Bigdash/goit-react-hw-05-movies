@@ -82,7 +82,11 @@ export default function Movies() {
           <div className="w-100">
             {movies.map(movie => (
               <li key={movie.id} className="list-group-item">
-                <StyledLink to={`${movie.id}`} state={{ from: location }} className="list-group-item">
+                <StyledLink
+                  to={`${movie.id}`}
+                  state={{ from: location }}
+                  className="list-group-item"
+                >
                   {movie.title}
                 </StyledLink>
               </li>

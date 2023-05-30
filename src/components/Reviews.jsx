@@ -46,7 +46,10 @@ export default function Reviews() {
       {reviews.length > 0 ? (
         <ul className="list-group w-100 gap-3">
           {reviews.map(review => (
-            <li key={review.id} className="list-group-item list-group-item-action">
+            <li
+              key={review.id}
+              className="list-group-item list-group-item-action"
+            >
               <h4>Author: {review.author}</h4>
               <p>{review.content}</p>
             </li>
@@ -58,4 +61,3 @@ export default function Reviews() {
     </div>
   );
 }
-
