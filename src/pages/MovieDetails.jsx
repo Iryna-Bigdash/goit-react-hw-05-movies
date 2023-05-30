@@ -46,15 +46,16 @@ export default function MovieDetails() {
   }
 
 const voteAverage = movieDetails?.vote_average;
-const votePercentage = voteAverage ? `${voteAverage * 10}%` : 'N/A';
+const votePercentage = voteAverage ? `${(voteAverage * 10).toFixed(2)}%` : 'N/A';
 
 
 
 
   return (
-    <div>
-      <Link to={backLinkLocationRef.current}>Go back</Link>
-      <div>
+    <>
+      <Link to={backLinkLocationRef.current} className='p-2 m-2 w-25 fs-5 fw-semibold'>Go back</Link>
+
+      <div className='mt-3 p-3 bg-light d-flex gap-3'>
       <img src={`https://image.tmdb.org/t/p/w500${movieDetails.poster_path}`} alt="Movie Poster" width={'300px'} height={'400px'} />
 
       <div>
@@ -65,18 +66,18 @@ const votePercentage = voteAverage ? `${voteAverage * 10}%` : 'N/A';
       </div>
   
       </div>
-      <p>Editional information</p>   
-      <ul>
-        <li>
+      <h5 className='fs-5 fw-semibold mt-3'>Editional information</h5>   
+      <ul className='list-group p-3'>
+        <li className='list-inline-item'>
           <Link to="cast">Cast</Link>
         </li>
-        <li>
+        <li className='list-inline-item'>
           <Link to="reviews">Reviews</Link>
         </li>
       </ul>
       <Suspense fallback={<div>Loading details</div>}>
         <Outlet />
       </Suspense>
-    </div>
+      </>
   );
 }

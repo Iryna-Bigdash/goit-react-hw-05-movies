@@ -1,15 +1,6 @@
-import styled from "@emotion/styled";
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { NavLink } from "react-router-dom";
-
-const StyledLink = styled(NavLink)`
-    color: black;
-
-    &:hover{
-        color: rgb(217, 85, 217);
-    }
-`
 
 export default function Home() {
   const [movies, setMovies] = useState([]);
@@ -34,17 +25,36 @@ export default function Home() {
   }, []);
 
   return (
-    <div>
-      <h1>Trending today</h1>
-      <ul>
+
+   <div>
+      <h5 className="mb-1 p-3 text-center fs-3 fw-bolder">Trending today</h5>
+      <ul className="list-group w-100">
         {movies.map(movie => (
-          <li key={movie.id}>
-            <StyledLink to={`${movie}`}>
+          <li key={movie.id} className="list-group-item list-group-item-action">
+            <NavLink to={`${movie}`} className="list-group-item list-group-item-primary-500" >
               {movie.title}
-            </StyledLink>
+            </NavLink>
           </li>
         ))}
       </ul>
-    </div>
+      </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   );
 }

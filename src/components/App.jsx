@@ -14,6 +14,7 @@ const Reviews = lazy(() => import('./Reviews'));
 
 export const App = () => {
   return (
+    <div className='container'>
     <Routes>
       <Route path="/" element={<Layout />}>
 
@@ -26,5 +27,6 @@ export const App = () => {
         </Route>
       </Route>
     </Routes>
+    </div>
   );
 };
