@@ -16,9 +16,11 @@ export default function Movies() {
   const [searchParams, setSearchParams] = useSearchParams();
   const query = searchParams.get('query') ?? '';
   const location = useLocation();
-  const [isFormSubmitted, setIsFormSubmitted] = useState(false);
 
   useEffect(() => {
+    if (!query) {
+      return;
+    }
     const fetchData = async () => {
       const url = `https://api.themoviedb.org/3/search/movie?query=${query}&include_adult=false&language=en-US&page=1`;
       const options = {
@@ -37,24 +39,16 @@ export default function Movies() {
       }
     };
 
-    if (isFormSubmitted) {
-      fetchData();
-      setIsFormSubmitted(false);
-    }
-  }, [isFormSubmitted, query]);
-
-  const updateQueryString = e => {
-    e.preventDefault();
-    const queryValue = e.target.value;
-
-    queryValue === ''
-      ? setSearchParams({})
-      : setSearchParams({ query: queryValue });
-  };
+    fetchData();
+  }, [query]);
 
   const onSubmitForm = e => {
     e.preventDefault();
-    setIsFormSubmitted(true);
+    const searchValue = e.currentTarget.elements.searchValue.value;
+
+    searchValue === ''
+      ? setSearchParams({})
+      : setSearchParams({ query: searchValue });
   };
 
   return (
@@ -64,11 +58,11 @@ export default function Movies() {
         <div className="col-auto">
           <input
             type="text"
-            value={query}
-            onChange={updateQueryString}
+            name="searchValue"
             className="form-control"
             placeholder="Movie title input here..."
             aria-label="Movie title input example"
+            required
           />
         </div>
         <div className="col-auto">

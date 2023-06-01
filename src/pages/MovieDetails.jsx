@@ -7,8 +7,7 @@ export default function MovieDetails() {
   const location = useLocation();
 
   const backLinkLocationRef = useRef(location.state?.from ?? '/');
-  console.log(location);
-
+ 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [movieDetails, setMovieDetails] = useState(null);
@@ -70,7 +69,7 @@ export default function MovieDetails() {
 
         <div>
           <h3>
-            Title: {movieDetails.title} {movieId}
+            Title: {movieDetails.title}
           </h3>
           <p>User Score: {votePercentage}</p>
           <p>Overview: {movieDetails.overview}</p>
